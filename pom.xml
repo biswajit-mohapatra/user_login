@@ -45,6 +45,13 @@
       <artifactId>jquery</artifactId>
       <version>3.2.1</version>
     </dependency>
+    <!-- Lombok-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.12</version>
+      <scope>provided</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
