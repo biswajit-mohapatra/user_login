@@ -33,35 +33,59 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
 
-      <div th:if="${param.success}">
-        <div class="alert alert-info">You've successfully registered to our awesome app!</div>
+      <div th:if="${signedUp != null}">
+        <div th:if="${signedUp == 'true'}" class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+          <p class="text-center">Thank You. Your profile has been created.</p>
+        </div>
+        <div th:if="${signedUp == 'false'}" class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+          <p th:text="${message}" class="text-center"/>
+        </div>
       </div>
 
       <h1>Registration</h1>
-      <form th:action="@{/registration}"  method="post">
+      <form th:action="@{/signup}" th:object="${userModel}" method="post">
 
         <div class="form-group">
-          <label for="firstName" class="control-label">First name</label> <input id="firstName" class="form-control"/>
+          <label for="firstName" class="control-label">First name</label> <input id="firstName" class="form-control" th:field="*{firstName}"/>
         </div>
         <div class="form-group">
-          <label for="lastName" class="control-label">Last name</label> <input id="lastName" class="form-control" />
+          <label for="lastName" class="control-label">Last name</label> <input id="lastName" class="form-control" th:field="*{lastName}" />
         </div>
         <div class="form-group">
-          <label for="email" class="control-label">E-mail</label> <input id="email" class="form-control"/>
+          <div th:if="${duplicatedEmail}">
+            <label for="email" class="alert alert-danger">Email (already taken)</label>
+            <input type="email" id="email" th:field="*{email}" class="form-control fieldError"/>
+          </div>
+          <div th:if="${duplicatedEmail == null}">
+            <label for="email" class="control-label">E-mail</label> <input type="email" id="email" class="form-control" th:field="*{email}"/>
+          </div>
         </div>
         <div class="form-group">
-          <label for="confirmEmail" class="control-label">Confirm
-            e-mail</label> <input id="confirmEmail" class="form-control" />
+          <label for="phoneNumber" class="control-label">Phone Number</label> <input id="phoneNumber" class="form-control" th:field="*{phoneNumber}"/>
         </div>
         <div class="form-group">
-          <label for="password" class="control-label">Password</label> <input id="password" class="form-control" type="password"/>
+         <div th:if="${duplicatedUsername}">
+           <label for="userName" class="alert alert-danger">Username (already taken)</label> <input type="text" id="userName" class="form-control fieldError" th:field="*{userName}"/>
+         </div>
+          <div th:if="${duplicatedUsername == null}">
+            <label for="userName" class="control-label">User name</label> <input type="text" id="userName" class="form-control" th:field="*{userName}"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="control-label">Password</label> <input id="password" class="form-control" type="password" th:field="*{password}"/>
         </div>
         <div class="form-group">
           <label for="confirmPassword" class="control-label">Confirm
-            password</label> <input id="confirmPassword" class="form-control" type="password"/>
+            password</label> <input id="confirmPassword" class="form-control" type="password" th:field="*{confirmPassword}"/>
         </div>
         <div class="form-group">
-          <input id="terms" type="checkbox"/> <label class="control-label" for="terms"> I agree with the <a
+          <input id="terms" type="checkbox" th:field="*{terms}"/> <label class="control-label" for="terms"> I agree with the <a
             href="#">terms and conditions</a> for Registration.
         </label>
         </div>
