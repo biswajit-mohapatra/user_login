@@ -71,7 +71,6 @@ public class SignupController {
     userService.saveUser(user);
     log.info("User created successfully");
     model.addAttribute(SIGNED_UP_MESSAGE_KEY, "true");
-    git stat
     return SIGN_UP_VIEW_NAME;
   }
 
