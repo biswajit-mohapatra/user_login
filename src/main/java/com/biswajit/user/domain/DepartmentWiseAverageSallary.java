@@ -1,5 +1,6 @@
 package com.biswajit.user.domain;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +10,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class Employee {
+public class DepartmentWiseAverageSallary {
 
-  private Integer id;
-  private String name;
-  private String dob;
-  private Double salary;
+  private Integer departmentId;
+  private Double averageSalary;
 }
